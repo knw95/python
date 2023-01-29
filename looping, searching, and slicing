@@ -1,0 +1,16 @@
+# Looping, Searching, and Slicing
+# By Kaitlyn Weiler
+
+# Part 2: parse_float.py
+
+# Write a second program named “parse_float.py”. Given the following Python statement... 
+# avg_str = 'Average value read: 0.72903' ... Use the find() method and string slicing to 
+# extract the portion of the string after the colon character and then use the float() 
+# function to convert the extracted string into a floating point value.
+
+avg_str = 'Average value read: 0.72903'
+
+num = avg_str[avg_str.find(':')+1:]
+num = float(num)
+
+print(num)
