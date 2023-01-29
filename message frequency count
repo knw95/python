@@ -1,0 +1,28 @@
+# Message Frequency Count
+# By: Kaitlyn Weiler
+
+# Open the desired file and create a handle
+handle = open('mbox.txt')
+
+# Establish a dictionary which will contain the number of messages
+# from each person:
+counts = {}
+
+# A loop that, for each line in the handle that starts with "From "
+# will strip the line into elements, take the first element as "senders"
+# and adds the senders, along with their counts, to the dictionary.
+for line in handle:
+    if line.startswith('From '):
+        words = line.split()
+        sender = words[1]
+        counts[sender] = counts.get(sender,0) + 1
+
+# Create a list of tuples (count, sender) from the dictionary and sort
+# the list in decending (highest to lowest) order:
+tlist = sorted([(count,sender) for sender,count in counts.items()], \
+reverse=True)
+
+# Print the result statement:
+for count,sender in tlist[:1]:
+    print('The person with the highest number of sent messages is', \
+    sender, 'with', count, 'messages.')
