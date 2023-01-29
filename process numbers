@@ -1,0 +1,27 @@
+# Process Numbers
+# By: Kaitlyn Weiler
+
+# Part 1: process_numbers.py
+
+# Write a program called “process_numbers.py” that repeatedly reads floating point numbers 
+# input by the user until the user types “done”. After the user has entered “done”, print out 
+# (i.e. print) the total, count, maximum, minimum, and average of the entered numbers:
+
+count = 0
+total = 0
+max = None
+min = None
+
+while True:
+    num = input('Enter a number below. Enter "done" when finished.\n> ')
+    if num == 'done': break
+    try: 
+        flnum = float(num)
+        count += float(1)
+        total += flnum
+        if max is None or flnum > max: max = flnum
+        if min is None or flnum < min: min = flnum
+    except: print('Invalid input')
+
+print('The count is', count, '\nThe total is', total, \
+'\nThe average is', total/count, '\nThe maximum is', max, '\nThe minimum is', min)
