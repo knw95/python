@@ -1,0 +1,54 @@
+# URL Reader
+# By: Kaitlyn Weiler
+
+from urllib.request import urlopen
+
+# Establish named constants:
+CHUNK_SIZE = 512
+CHAR_LIMIT = 3000
+
+# Define a string containing the chunks of the file as it's read:
+chunk = ""
+
+# Prompt the user for the URL with error checking to ensure the user
+# has entered a valid and properly formatted URL:
+url = input('Enter URL: ')
+
+# Establish variables for the counting of chunks (full and partial):
+count_full = 0
+count_part = 0
+
+try:
+    # Open the url
+    data = urlopen(url)
+    # Read through the file in specified chunk sizes until the size reaches
+    # the character limit designated by the 'CHAR_LIMIT' named constant: 
+    while True:
+        if count_full < CHAR_LIMIT:
+            chunk = data.read(CHUNK_SIZE)
+            count_full += len(chunk)
+            print(chunk.decode())
+        else:
+            chunk = data.read(CHAR_LIMIT%CHUNK_SIZE)
+            count_part += len(chunk)
+            print(chunk.decode())    
+            break
+except:
+    # If user enters an invalid or improperly formatted url:
+    print('Error! Try again with a valid URL.')
+    quit()
+
+# Determine a new count based on the full and partial chunks:
+count_fin = 0
+if CHAR_LIMIT%CHUNK_SIZE == 0: count_fin = count_full
+if CHAR_LIMIT%CHUNK_SIZE != 0: count_fin = (count_full - CHUNK_SIZE) + count_part
+
+# This is just to double-check the individual counts:
+# print(count_full)
+# print(count_part)
+# print(count_fin)
+
+# Display the total number of characters:
+print('\nThe total character count is:', count_fin)
+
+data.close()
