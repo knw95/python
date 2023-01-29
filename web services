@@ -1,0 +1,58 @@
+# Web Services
+# By: Kaitlyn Weiler
+
+import urllib.request, urllib.parse, urllib.error
+import json
+import ssl
+import sys
+
+# Enter Google Places API key:
+api_key = 'AIzaSyAhnbLOiMC-bhFPLVASIgvlXsBYtb3tgLg'
+
+serviceurl = 'https://maps.googleapis.com/maps/api/geocode/json?'
+
+# Ignore SSL certificate errors
+ctx = ssl.create_default_context()
+ctx.check_hostname = False
+ctx.verify_mode = ssl.CERT_NONE
+
+while True:
+    address = input('Enter a location below. Enter "Done" when finished. \n> ')
+    if len(address) < 1: break
+    if address == 'Done':
+        print('Goodbye!')
+        sys.exit()
+
+    parms = dict()
+    parms['address'] = address
+    parms['key'] = api_key
+    url = serviceurl + urllib.parse.urlencode(parms)
+
+    uh = urllib.request.urlopen(url, context=ctx)
+    data = uh.read().decode()
+
+    try:
+        js = json.loads(data)
+    except:
+        js = None
+
+    if not js or 'status' not in js or js['status'] != 'OK':
+        print('==== Failure To Retrieve. Goodbye! ====')
+        break
+
+    # Uncomment the line below if you want to see the data printed out:
+    # print(json.dumps(js, indent=4))
+    
+    # Printing the two-character country code based on user input:
+    address_components = js['results'][0]['address_components']
+    country_exists = False
+    try:
+        for things in address_components:
+            types = things["types"]
+            if types == ["country", "political"]:
+                country_exists = True
+                print("The two-character country code is:", things["short_name"],'\n')
+        if not country_exists:
+            raise Exception
+    except:
+        print('There is no country code for that location. Please try again!\n')
