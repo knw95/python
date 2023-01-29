@@ -1,0 +1,48 @@
+# Lists and Split
+# By: Kaitlyn Weiler
+
+# Prompts the user for a file and opens the file:
+file_name = input('Enter file name: ')
+file_hand = open(file_name)
+
+# Creates an empty list:
+script_list = list()
+
+# For each line in the open file, split the line into words:
+for line in file_hand: 
+    file_word_list = line.split()
+    # For each word in the list of words, convert to lowercase, and if not in list, add to end of the list:
+    for word in file_word_list:
+        low_word = word.lower()
+        if not low_word in script_list: script_list.append(low_word)
+
+# Takes the list and sorts the items inside alphabetically:
+script_list.sort()
+
+# print(script_list) # Use to check the list.
+# for word in script_list: print(word) # Use to check each word, one at a time
+
+# Create a new list called word_list which is identical to script_list:
+word_list = script_list
+
+# Define a function called freq_count() to count the freqeuncey of an item in each element:
+def freq_count(search_str, word_list):
+	# For each element, or word, in the script list, start the frequency count at '0'
+    for word in word_list:
+        count = 0
+        # This variable 'spot' keeps track of the position within the word
+        spot = word.find(search_str)
+        while spot >= 0:
+			# When the 'search_str' target occurs within the word, the count is increased.
+            count += 1
+			# The position then changes to skip the last occurence and search for the next.
+            spot += len(search_str)
+            spot = word.find(search_str, spot)
+			# If no occurence is found, the 'while' loop ends and proceeds to the next word.
+        print(word, '-', count)
+
+# Prompt the user for a substring to query:
+search_str = input('Enter substring: ')
+
+# Pass the list into the function:
+freq_count(search_str, word_list)
