@@ -1,0 +1,31 @@
+# Functions
+# By: Kaitlyn Weiler
+
+# Define a function named to_number(str) that takes a string value as a parameter, 
+# converts it to an int value, and returns that int value:
+def to_number(str):
+    return int(str)
+num0 = input('enter a number as a string: ')
+print(type(num0))
+print('convert to an integer:', to_number(num0)), print(type(to_number(num0)))
+
+# Define a function named add_two(n1, n2) that takes two ints as parameters, 
+# sums them, and then returns that int sum value:
+def add_two(n1, n2):
+    return n1 + n2
+num1 = int(input('enter one number: '))
+num2 = int(input('enter a second number: '))
+print('sum of both numbers:', add_two(num1, num2))
+
+# Define a function named cube(n) that takes a numeric value as a parameter, 
+# cubes that value, and then returns that resulting numeric value:
+def cube(n):
+    return n*n*n
+num3 = int(input('enter a number to cube: '))
+print('that number cubed:', cube(num3))
+
+#Use the above functions to compose one (only one) statement to 
+# specify two string literals, convert them to ints, add them together, 
+# cube the result, and print the cubed value:
+num4 = int(input('enter a number as a string, convert to an integer, add to itself and cube: '))
+print(cube(add_two(to_number(num4), to_number(num4))))
